@@ -7,8 +7,9 @@ group = 'shopping-cart'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    // Update Java version (your pipeline uses Java 17)
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -18,15 +19,13 @@ repositories {
 dependencies {
     implementation 'mysql:mysql-connector-java:8.0.33'
     implementation 'javax.servlet:javax.servlet-api:3.1.0'
+
+    // Jakarta Mail
     implementation 'jakarta.mail:jakarta.mail-api:2.1.1'
     implementation 'com.sun.mail:jakarta.mail:2.0.1'
+
     implementation 'javax.xml.ws:jaxws-api:2.3.1'
     implementation 'commons-codec:commons-codec:1.15'
-}
-
-war {
-    // Maven’s <warSourceDirectory>WebContent</warSourceDirectory>
-    webAppDirName = 'WebContent'
 }
 
 sourceSets {
@@ -40,3 +39,11 @@ sourceSets {
         }
     }
 }
+
+war {
+    // Replaces deprecated webAppDirName
+    from('WebContent') {
+        into ''
+    }
+}
+
